@@ -24,8 +24,10 @@ from transformers.configuration_utils import PretrainedConfig
 
 logger = logging.getLogger(__name__)
 
+from transformers import AutoConfig
 
-class MaskedBertConfig(PretrainedConfig):
+# class MaskedBertConfig(PretrainedConfig):
+class MaskedBertConfig(AutoConfig):
     """
     A class replicating the `~transformers.BertConfig` with additional parameters for pruning/masking configuration.
     """

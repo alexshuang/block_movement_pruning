@@ -32,6 +32,7 @@ python masked_run_squad.py --output_dir block_movement_pruning/output --overwrit
                    --final_shuffling_temperature 20 \
                    --shuffling_learning_rate 1e-2 \
                    --in_shuffling_group 2 \
+		   --cache_dir $PWD/cache \
                    --out_shuffling_group 2
                    #--truncate_train_examples 100
 #                   --initial_ampere_temperature 0.1 \

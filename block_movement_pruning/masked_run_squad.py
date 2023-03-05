@@ -49,7 +49,7 @@ from transformers.data.metrics.squad_metrics import (
     squad_evaluate,
 )
 from transformers.data.processors.squad import SquadResult, SquadV1Processor, SquadV2Processor
-from transformers.utils.hp_naming import TrialShortNamer
+#from transformers.utils.hp_naming import TrialShortNamer
 
 
 try:
@@ -1085,7 +1085,8 @@ def create_parser():
     return parser
 
 
-class ShortNamer(TrialShortNamer):
+#class ShortNamer(TrialShortNamer):
+class ShortNamer():
     DEFAULTS = dict(
         adam_epsilon=1e-08,
         alpha_ce=0.5,
@@ -1168,8 +1169,9 @@ class ShortNamer(TrialShortNamer):
 
 
 def main_single(args):
-    short_name = ShortNamer.shortname(args.__dict__)
-    print(f"HP NAME {short_name}")
+    #short_name = ShortNamer.shortname(args.__dict__)
+    #print(f"HP NAME {short_name}")
+    short_name="output"
     args.output_dir = os.path.join(args.output_dir, short_name)
 
     if args.doc_stride >= args.max_seq_length - args.max_query_length:
@@ -1255,6 +1257,18 @@ def main_single(args):
         in_shuffling_group=args.in_shuffling_group,
         out_shuffling_group=args.out_shuffling_group,
     )
+
+    config.pruning_method = args.pruning_method
+    config.mask_init = args.mask_init
+    config.mask_scale = args.mask_scale
+    config.mask_block_rows = args.mask_block_rows
+    config.mask_block_cols = args.mask_block_cols
+    config.ampere_pruning_method = args.ampere_pruning_method
+    config.ampere_mask_init = args.ampere_mask_init
+    config.ampere_mask_scale = args.ampere_mask_scale
+    config.shuffling_method = args.shuffling_method
+    config.in_shuffling_group = args.in_shuffling_group
+    config.out_shuffling_group = args.out_shuffling_group
 
     tokenizer = tokenizer_class.from_pretrained(
         args.tokenizer_name if args.tokenizer_name else args.model_name_or_path,

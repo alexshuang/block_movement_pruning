@@ -25,7 +25,7 @@ import math
 import torch
 from torch import nn
 from torch.nn import CrossEntropyLoss, MSELoss
-from transformers.file_utils import add_start_docstrings, add_start_docstrings_to_model_forward
+from transformers.file_utils import add_start_docstrings, add_start_docstrings_to_callable #add_start_docstrings_to_model_forward
 from transformers.modeling_bert import ACT2FN, load_tf_weights_in_bert
 from transformers.modeling_utils import PreTrainedModel, prune_linear_layer
 
@@ -366,7 +366,9 @@ class BertPooler(nn.Module):
         return pooled_output
 
 
-class MaskedBertPreTrainedModel(PreTrainedModel):
+from transformers import BertModel
+#class MaskedBertPreTrainedModel(PreTrainedModel):
+class MaskedBertPreTrainedModel(BertModel):
     """An abstract class to handle weights initialization and
     a simple interface for downloading and loading pretrained models.
     """
@@ -481,7 +483,8 @@ class MaskedBertModel(MaskedBertPreTrainedModel):
         for layer, heads in heads_to_prune.items():
             self.encoder.layer[layer].attention.prune_heads(heads)
 
-    @add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    #@add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    @add_start_docstrings_to_callable(MASKED_BERT_INPUTS_DOCSTRING)
     def forward(
         self,
         input_ids=None,
@@ -654,7 +657,8 @@ class MaskedBertForSequenceClassification(MaskedBertPreTrainedModel):
 
         self.init_weights()
 
-    @add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    #@add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    @add_start_docstrings_to_callable(MASKED_BERT_INPUTS_DOCSTRING)
     def forward(
         self,
         input_ids=None,
@@ -739,7 +743,8 @@ class MaskedBertForMultipleChoice(MaskedBertPreTrainedModel):
 
         self.init_weights()
 
-    @add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    #@add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    @add_start_docstrings_to_callable(MASKED_BERT_INPUTS_DOCSTRING)
     def forward(
         self,
         input_ids=None,
@@ -829,7 +834,8 @@ class MaskedBertForTokenClassification(MaskedBertPreTrainedModel):
 
         self.init_weights()
 
-    @add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    #@add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    @add_start_docstrings_to_callable(MASKED_BERT_INPUTS_DOCSTRING)
     def forward(
         self,
         input_ids=None,
@@ -915,7 +921,8 @@ class MaskedBertForQuestionAnswering(MaskedBertPreTrainedModel):
 
         self.init_weights()
 
-    @add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    #@add_start_docstrings_to_model_forward(MASKED_BERT_INPUTS_DOCSTRING)
+    @add_start_docstrings_to_callable(MASKED_BERT_INPUTS_DOCSTRING)
     def forward(
         self,
         input_ids=None,
